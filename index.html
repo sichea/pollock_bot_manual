@@ -278,19 +278,44 @@
             `;
         }
 
-        async function copyToClipboard(text, event) {
+        function copyToClipboard(text, event) {
+            // 임시 textarea 엘리먼트 생성
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            // 텍스트 선택 및 복사
+            textarea.select();
+            let success = false;
+            
             try {
-                await navigator.clipboard.writeText(text);
-                showToast(`복사 완료: ${text}`);
+                // 먼저 modern API 시도
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        success = true;
+                    });
+                } else {
+                    // 폴백: execCommand 사용
+                    success = document.execCommand('copy');
+                }
                 
-                // 클릭된 요소에 복사 효과 추가
-                const element = event.currentTarget;
-                element.classList.add('copied');
-                setTimeout(() => {
-                    element.classList.remove('copied');
-                }, 1000);
+                // 성공 시 시각적 피드백
+                if (success) {
+                    showToast(`복사 완료: ${text}`);
+                    const element = event.currentTarget;
+                    element.classList.add('copied');
+                    setTimeout(() => {
+                        element.classList.remove('copied');
+                    }, 1000);
+                }
             } catch (err) {
-                showToast('복사 실패: 브라우저 설정을 확인해주세요');
+                console.error('복사 실패:', err);
+                showToast('복사 실패: 다시 시도해주세요');
+            } finally {
+                // 임시 textarea 제거
+                document.body.removeChild(textarea);
             }
         }
 
