@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명태봇 관리자 매뉴얼</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .alert {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .command-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .command-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .command {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            user-select: all;
+        }
+
+        .command:hover {
+            background: #dee2e6;
+        }
+
+        .copy-button {
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            color: #6c757d;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-button:hover {
+            background: #dee2e6;
+            color: #343a40;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .example {
+            font-size: 12px;
+            color: #666;
+            background: #f1f3f5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            user-select: all;
+        }
+
+        .example:hover {
+            background: #e9ecef;
+        }
+
+        .copied {
+            background-color: #d4edda !important;
+            color: #155724;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐟 명태봇 관리자 매뉴얼</h1>
+        
+        <div class="alert">
+            💡 명령어나 예시를 클릭하면 클립보드에 복사됩니다. 
+            개인채팅 명령어는 반드시 봇과의 1:1 채팅에서만 사용해주세요.
+        </div>
+
+        <div class="command-section">
+            <h2 class="section-title">📱 개인채팅 전용 명령어</h2>
+            <div id="private-commands"></div>
+        </div>
+
+        <div class="command-section">
+            <h2 class="section-title">👥 그룹채팅 전용 명령어</h2>
+            <div id="group-commands"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const privateCommands = [
+            {
+                command: "/admin_select_group",
+                description: "관리할 그룹 선택",
+                example: "/admin_select_group -1001234567890"
+            },
+            {
+                command: "/admin_set_distribution",
+                description: "분배 방식 설정 (auto/manual/both/none)",
+                example: "/admin_set_distribution auto"
+            },
+            {
+                command: "/admin_set_reward",
+                description: "USDT 보상 범위 설정",
+                example: "/admin_set_reward 0.1 1.0"
+            },
+            {
+                command: "/admin_set_reward_settings",
+                description: "보상 상세 설정 (확률, 최소메시지길이, 일일최대보상, 사용자별최대보상)",
+                example: "/admin_set_reward_settings 0.1 10 100 3"
+            },
+            {
+                command: "/admin_stats",
+                description: "현재 선택된 그룹의 통계 확인"
+            },
+            {
+                command: "/admin_activities",
+                description: "사용자 활동 현황 확인",
+                example: "/admin_activities chat 1"
+            },
+            {
+                command: "/admin_balance",
+                description: "관리자 지갑 잔액 확인"
+            },
+            {
+                command: "/admin_send",
+                description: "수동으로 USDT 전송",
+                example: "/admin_send 0x1234...5678 1.5"
+            },
+            {
+                command: "/admin_reset_stats",
+                description: "통계 초기화 (all/activities/rewards/missions)",
+                example: "/admin_reset_stats all"
+            }
+        ];
+
+        const groupCommands = [
+            {
+                command: "/admin_mission_start",
+                description: "새로운 미션 시작",
+                example: "/admin_mission_start 30 10 오늘 점심 메뉴는?"
+            },
+            {
+                command: "/admin_mission_end",
+                description: "현재 진행 중인 미션 종료"
+            },
+            {
+                command: "/admin_mission_cancel",
+                description: "미션 강제 취소"
+            },
+            {
+                command: "/mission_random",
+                description: "무작위로 당첨자 선정",
+                example: "/mission_random 3"
+            },
+            {
+                command: "/mission_select",
+                description: "수동으로 당첨자 선정",
+                example: "/mission_select user1 user2 user3"
+            }
+        ];
+
+        function createCommandCard(command) {
+            return `
+                <div class="command-card">
+                    <div class="command-header">
+                        <span class="command" onclick="copyToClipboard('${command.command}', event)">${command.command}</span>
+                        <button class="copy-button" onclick="copyToClipboard('${command.command}', event)">
+                            <span class="button-text">복사</span> 📋
+                        </button>
+                    </div>
+                    <div class="description">${command.description}</div>
+                    ${command.example ? `
+                        <div class="example" onclick="copyToClipboard('${command.example}', event)">
+                            예시: ${command.example}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        async function copyToClipboard(text, event) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast(`복사 완료: ${text}`);
+                
+                // 클릭된 요소에 복사 효과 추가
+                const element = event.currentTarget;
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 1000);
+            } catch (err) {
+                showToast('복사 실패: 브라우저 설정을 확인해주세요');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+
+        document.getElementById('private-commands').innerHTML = 
+            privateCommands.map(createCommandCard).join('');
+        document.getElementById('group-commands').innerHTML = 
+            groupCommands.map(createCommandCard).join('');
+    </script>
+</body>
+</html>
