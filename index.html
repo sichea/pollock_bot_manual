@@ -214,12 +214,17 @@
             },
             {
                 command: "/admin_activities",
-                description: "사용자 활동 현황 확인",
+                description: "사용자 활동 현황 확인 (정렬: chat/mission/reward)",
                 example: "/admin_activities chat 1"
             },
             {
                 command: "/admin_balance",
                 description: "관리자 지갑 잔액 확인"
+            },
+            {
+                command: "/admin_check_wallets",
+                description: "사용자 지갑 주소 확인 (검색 또는 전체 목록)",
+                example: "/admin_check_wallets username\n/admin_check_wallets 2"
             },
             {
                 command: "/admin_send",
@@ -241,11 +246,16 @@
             },
             {
                 command: "/admin_mission_end",
-                description: "현재 진행 중인 미션 종료"
+                description: "현재 진행 중인 미션 종료 및 답변 목록 확인"
             },
             {
                 command: "/admin_mission_cancel",
                 description: "미션 강제 취소"
+            },
+            {
+                command: "/mission_exclude",
+                description: "부적절한 답변 제외",
+                example: "/mission_exclude user1 user2"
             },
             {
                 command: "/mission_random",
@@ -279,29 +289,24 @@
         }
 
         function copyToClipboard(text, event) {
-            // 임시 textarea 엘리먼트 생성
             const textarea = document.createElement('textarea');
             textarea.value = text;
             textarea.style.position = 'fixed';
             textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             
-            // 텍스트 선택 및 복사
             textarea.select();
             let success = false;
             
             try {
-                // 먼저 modern API 시도
                 if (navigator.clipboard && window.isSecureContext) {
                     navigator.clipboard.writeText(text).then(() => {
                         success = true;
                     });
                 } else {
-                    // 폴백: execCommand 사용
                     success = document.execCommand('copy');
                 }
                 
-                // 성공 시 시각적 피드백
                 if (success) {
                     showToast(`복사 완료: ${text}`);
                     const element = event.currentTarget;
@@ -314,7 +319,6 @@
                 console.error('복사 실패:', err);
                 showToast('복사 실패: 다시 시도해주세요');
             } finally {
-                // 임시 textarea 제거
                 document.body.removeChild(textarea);
             }
         }
