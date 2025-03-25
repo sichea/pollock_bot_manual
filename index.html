@@ -14,32 +14,33 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
+            color: #e1e1e1;
+            background-color: #121212;
             padding: 20px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: #1e1e1e;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         h1 {
             text-align: center;
-            color: #2c3e50;
+            color: #61dafb;
             margin-bottom: 30px;
         }
 
         .alert {
-            background-color: #fff3cd;
+            background-color: #2c2500;
             border-left: 4px solid #ffc107;
             padding: 15px;
             margin-bottom: 30px;
             border-radius: 4px;
+            color: #ffd54f;
         }
 
         .command-section {
@@ -47,15 +48,15 @@
         }
 
         .section-title {
-            color: #2c3e50;
+            color: #61dafb;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid #333;
         }
 
         .command-card {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: #2a2a2a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
@@ -63,7 +64,8 @@
         }
 
         .command-card:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            background: #333333;
         }
 
         .command-header {
@@ -75,7 +77,8 @@
 
         .command {
             font-family: monospace;
-            background: #e9ecef;
+            background: #383838;
+            color: #61dafb;
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 14px;
@@ -85,15 +88,15 @@
         }
 
         .command:hover {
-            background: #dee2e6;
+            background: #444444;
         }
 
         .copy-button {
-            background: #e9ecef;
+            background: #383838;
             border: none;
             cursor: pointer;
             padding: 8px 12px;
-            color: #6c757d;
+            color: #b0b0b0;
             border-radius: 4px;
             font-size: 14px;
             transition: all 0.3s ease;
@@ -103,20 +106,20 @@
         }
 
         .copy-button:hover {
-            background: #dee2e6;
-            color: #343a40;
+            background: #444444;
+            color: #ffffff;
         }
 
         .description {
             font-size: 14px;
-            color: #666;
+            color: #b0b0b0;
             margin-bottom: 8px;
         }
 
         .example {
             font-size: 12px;
-            color: #666;
-            background: #f1f3f5;
+            color: #b0b0b0;
+            background: #383838;
             padding: 5px 10px;
             border-radius: 4px;
             margin-top: 8px;
@@ -126,24 +129,25 @@
         }
 
         .example:hover {
-            background: #e9ecef;
+            background: #444444;
         }
 
         .copied {
-            background-color: #d4edda !important;
-            color: #155724;
+            background-color: #1b5e20 !important;
+            color: #81c784;
         }
 
         .toast {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #28a745;
+            background: #388e3c;
             color: white;
             padding: 10px 20px;
             border-radius: 4px;
             display: none;
             animation: slideIn 0.3s ease;
+            z-index: 1000;
         }
 
         @keyframes slideIn {
@@ -155,6 +159,25 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+
+        .toggle-theme {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #383838;
+            color: #b0b0b0;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-theme:hover {
+            background: #444444;
+            color: #ffffff;
         }
 
         @media (max-width: 768px) {
@@ -181,6 +204,11 @@
         <div class="command-section">
             <h2 class="section-title">👥 그룹채팅 전용 명령어</h2>
             <div id="group-commands"></div>
+        </div>
+
+        <div class="command-section">
+            <h2 class="section-title">💬 채팅방 직접 명령어</h2>
+            <div id="chat-commands"></div>
         </div>
     </div>
 
@@ -280,6 +308,19 @@
                 command: "/mission_select",
                 description: "수동으로 당첨자 선정",
                 example: "/mission_select user1 user2 user3"
+            },
+            //{
+            //    command: "/admin_bustercall",
+            //    description: "일정 시간 내 활동한 사용자들에게 USDT 분배",
+            //    example: "/admin_bustercall 10 2 (총액 10 USDT, 2시간 내 활동자)"
+            //}
+        ];
+
+        const chatCommands = [
+            {
+                command: "!send",
+                description: "사용자의 메시지에 답장으로 USDT 직접 전송 (관리자만 가능)",
+                example: "!send 1.5"
             }
         ];
 
@@ -351,6 +392,8 @@
             privateCommands.map(createCommandCard).join('');
         document.getElementById('group-commands').innerHTML = 
             groupCommands.map(createCommandCard).join('');
+        document.getElementById('chat-commands').innerHTML = 
+            chatCommands.map(createCommandCard).join('');
     </script>
 </body>
 </html>
