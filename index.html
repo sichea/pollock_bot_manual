@@ -242,6 +242,15 @@
                 example: "/admin_add_banned_word 안녕 반가워 링크"
             },
             {
+                command: "/admin_remove_banned_word",
+                description: "금지 단어 제거",
+                example: "/admin_remove_banned_word 안녕 반가워"
+            },
+            {
+                command: "/admin_list_banned_words",
+                description: "설정된 금지 단어 목록 확인"
+            },
+            {
                 command: "/admin_ban_user",
                 description: "특정 유저를 현재 그룹에서 벤 처리 (보상에서 제외)",
                 example: "/admin_ban_user 123456789 사유 내용"
@@ -254,15 +263,6 @@
             {
                 command: "/admin_list_banned_users",
                 description: "벤 유저 목록 확인"
-            },
-            {
-                command: "/admin_remove_banned_word",
-                description: "금지 단어 제거",
-                example: "/admin_remove_banned_word 안녕 반가워"
-            },
-            {
-                command: "/admin_list_banned_words",
-                description: "설정된 금지 단어 목록 확인"
             },
             {
                 command: "/admin_stats",
@@ -331,6 +331,11 @@
                 command: "/mission_select",
                 description: "수동으로 당첨자 선정",
                 example: "/mission_select user1 user2 user3"
+            },
+            {
+                command: "/admin_mission_raffle",
+                description: "랜덤 추첨(래플)",
+                example: "/admin_mission_raffle 치킨=1 피자=2 커피=5"
             },
             {
                 command: "/admin_bustercall",
