@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>명태봇 관리자 매뉴얼</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
@@ -18,7 +13,6 @@
             background-color: #121212;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -27,13 +21,7 @@
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-
-        h1 {
-            text-align: center;
-            color: #61dafb;
-            margin-bottom: 30px;
-        }
-
+        h1 { text-align: center; color: #61dafb; margin-bottom: 30px; }
         .alert {
             background-color: #2c2500;
             border-left: 4px solid #ffc107;
@@ -42,386 +30,130 @@
             border-radius: 4px;
             color: #ffd54f;
         }
-
-        .command-section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            color: #61dafb;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
-        }
-
-        .command-card {
+        .accordion { margin-bottom: 15px; border: 1px solid #333; border-radius: 6px; overflow: hidden; }
+        .accordion-header {
             background: #2a2a2a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .command-card:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            background: #333333;
-        }
-
-        .command-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #61dafb;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            transition: background 0.3s;
         }
-
-        .command {
-            font-family: monospace;
-            background: #383838;
-            color: #61dafb;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            user-select: all;
-        }
-
-        .command:hover {
-            background: #444444;
-        }
-
-        .copy-button {
-            background: #383838;
-            border: none;
-            cursor: pointer;
-            padding: 8px 12px;
-            color: #b0b0b0;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .copy-button:hover {
-            background: #444444;
-            color: #ffffff;
-        }
-
-        .description {
-            font-size: 14px;
-            color: #b0b0b0;
-            margin-bottom: 8px;
-        }
-
-        .example {
-            font-size: 12px;
-            color: #b0b0b0;
-            background: #383838;
-            padding: 5px 10px;
-            border-radius: 4px;
-            margin-top: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            user-select: all;
-        }
-
-        .example:hover {
-            background: #444444;
-        }
-
-        .copied {
-            background-color: #1b5e20 !important;
-            color: #81c784;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #388e3c;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            display: none;
-            animation: slideIn 0.3s ease;
-            z-index: 1000;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .toggle-theme {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #383838;
-            color: #b0b0b0;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-theme:hover {
-            background: #444444;
-            color: #ffffff;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-        }
+        .accordion-header:hover { background: #333; }
+        .accordion-body { display: none; background: #1e1e1e; padding: 10px 0; }
+        .command-item { padding: 8px 16px; cursor: pointer; border-bottom: 1px solid #333; color: #b0b0b0; transition: background 0.3s; }
+        .command-item:hover { background: #2a2a2a; color: #fff; }
+        .command-details { display: none; padding: 10px 20px; background: #2a2a2a; font-size: 14px; }
+        .command-text { font-family: monospace; background: #383838; color: #61dafb; padding: 4px 8px; border-radius: 4px; margin-right: 8px; cursor: pointer; }
+        .example { font-size: 12px; color: #ccc; background: #383838; padding: 5px 10px; border-radius: 4px; margin-top: 6px; display: inline-block; }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: #388e3c; color: white; padding: 10px 20px; border-radius: 4px; display: none; animation: slideIn 0.3s ease; z-index: 1000; }
+        @keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🐟 명태봇 관리자 매뉴얼</h1>
-        
-        <div class="alert">
-            💡 명령어나 예시를 클릭하면 클립보드에 복사됩니다. 
-            개인채팅 명령어는 반드시 봇과의 1:1 채팅에서만 사용해주세요.
-        </div>
-
-        <div class="command-section">
-            <h2 class="section-title">📱 개인채팅 전용 명령어</h2>
-            <div id="private-commands"></div>
-        </div>
-
-        <div class="command-section">
-            <h2 class="section-title">👥 그룹채팅 전용 명령어</h2>
-            <div id="group-commands"></div>
-        </div>
-
-        <div class="command-section">
-            <h2 class="section-title">💬 채팅방 직접 명령어</h2>
-            <div id="chat-commands"></div>
-        </div>
+        <div class="alert">💡 설명을 클릭하면 명령어와 예시가 펼쳐집니다. 커맨드는 클릭하면 클립보드에 복사됩니다.</div>
+        <div id="accordion-container"></div>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        const privateCommands = [
-            {
-                command: "/admin_select_group",
-                description: "관리할 그룹 선택",
-                example: "/admin_select_group -1001234567890"
-            },
-            {
-                command: "/admin_set_distribution",
-                description: "분배 방식 설정 (auto/manual/both/none)",
-                example: "/admin_set_distribution auto"
-            },
-            {
-                command: "/admin_set_reward",
-                description: "USDT 보상 범위 설정",
-                example: "/admin_set_reward 0.1 1.0"
-            },
-            {
-                command: "/admin_set_reward_settings",
-                description: "보상 상세 설정 (확률, 최소메시지길이, 일일최대보상, 사용자별최대보상)",
-                example: "/admin_set_reward_settings 0.1 10 100 3"
-            },
-            {
-                command: "/admin_add_banned_word",
-                description: "금지 단어 추가 (보상에서 제외될 단어)",
-                example: "/admin_add_banned_word 안녕 반가워 링크"
-            },
-            {
-                command: "/admin_remove_banned_word",
-                description: "금지 단어 제거",
-                example: "/admin_remove_banned_word 안녕 반가워"
-            },
-            {
-                command: "/admin_list_banned_words",
-                description: "설정된 금지 단어 목록 확인"
-            },
-            {
-                command: "/admin_ban_user",
-                description: "특정 유저를 현재 그룹에서 벤 처리 (보상에서 제외)",
-                example: "/admin_ban_user 123456789 사유 내용"
-            },
-            {
-                command: "/admin_unban_user",
-                description: "유저 벤 해제",
-                example: "/admin_unban_user 123456789"
-            },
-            {
-                command: "/admin_list_banned_users",
-                description: "벤 유저 목록 확인"
-            },
-            {
-                command: "/admin_stats",
-                description: "현재 선택된 그룹의 통계 확인"
-            },
-            {
-                command: "/admin_activities",
-                description: "사용자 활동 현황 확인 (정렬: chat/mission/reward)",
-                example: "/admin_activities chat 1"
-            },
-            {
-                command: "/admin_balance",
-                description: "관리자 지갑 잔액 확인"
-            },
-            {
-                command: "/admin_check_wallets",
-                description: "사용자 지갑 주소 확인 (전체 목록 또는 검색)",
-                example: "/admin_check_wallets (페이지번호)  │ /admin_check_wallets (검색어)"
-            },
-            {
-                command: "/admin_send",
-                description: "수동으로 USDT 전송",
-                example: "/admin_send 0x1234...5678 1.5"
-            },
-            {
-                command: "/admin_reset_stats",
-                description: "통계 초기화 (all/activities/rewards/missions)",
-                example: "/admin_reset_stats all"
-            },
-            {
-                command: "/admin_set_active_hours",
-                description: "/admin_set_active_hours <시작시> <종료시>",
-                example: "/admin_set_active_hours 9 24"
-            }
+        const sections = [
+            { title: "🐟️ 명태와 갠톡 명령어", commands: [
+                {command:"/admin_select_group",description:"관리할 그룹 선택",example:"/admin_select_group -1001234567890"},
+                {command:"/admin_set_distribution",description:"분배 방식 설정 (auto/manual/both/none)",example:"/admin_set_distribution auto"},
+                {command:"/admin_set_reward",description:"USDT 보상 범위 설정",example:"/admin_set_reward 0.1 1.0"},
+                {command:"/admin_set_reward_settings",description:"보상 상세 설정 (확률, 최소메시지길이, 일일최대보상, 사용자별최대보상)",example:"/admin_set_reward_settings 0.1 10 100 3"},
+                {command:"/admin_add_banned_word",description:"금지 단어 추가",example:"/admin_add_banned_word 안녕 반가워 링크"},
+                {command:"/admin_remove_banned_word",description:"금지 단어 제거",example:"/admin_remove_banned_word 안녕 반가워"},
+                {command:"/admin_list_banned_words",description:"설정된 금지 단어 목록 확인"},
+                {command:"/admin_ban_user",description:"특정 유저 벤 처리",example:"/admin_ban_user 123456789 사유 내용"},
+                {command:"/admin_unban_user",description:"유저 벤 해제",example:"/admin_unban_user 123456789"},
+                {command:"/admin_list_banned_users",description:"벤 유저 목록 확인"},
+                {command:"/admin_stats",description:"현재 선택된 그룹의 통계 확인"},
+                {command:"/admin_activities",description:"사용자 활동 현황 확인 (정렬: chat/mission/reward)",example:"/admin_activities chat 1"},
+                {command:"/admin_balance",description:"관리자 지갑 잔액 확인"},
+                {command:"/admin_check_wallets",description:"사용자 지갑 주소 확인 (전체 목록 또는 검색)",example:"/admin_check_wallets (페이지번호)  │ /admin_check_wallets (검색어)"},
+                {command:"/admin_send",description:"수동으로 USDT 전송 (주소, 금액)",example:"/admin_send 0x1234...5678 1.5"},
+                {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
+                {command:"/admin_set_active_hours",description:"/admin_set_active_hours <시작시> <종료시>",example:"/admin_set_active_hours 9 24"}
+            ]},
+            { title: "👥 그룹채팅 명령어", commands: [
+                {command:"/admin_mission_start",description:"새로운 미션 시작 (시간(분), 상금, 내용)",example:"/admin_mission_start 30 10 오늘 점심 메뉴는?"},
+                {command:"/admin_mission_end",description:"미션 종료 및 답변 확인"},
+                {command:"/admin_mission_cancel",description:"미션 강제 취소"},
+                {command:"/admin_dump_mission",description:"미션 참여자 확인"},
+                {command:"/mission_exclude",description:"부적절한 답변 제외 (유저ID)",example:"/mission_exclude user1 user2"},
+                {command:"/mission_random",description:"랜덤픽",example:"/mission_random 3"},
+                {command:"/mission_select",description:"핸드픽 (유저ID)",example:"/mission_select user1 user2 user3"},
+                {command:"/admin_mission_raffle",description:"상품 래플 (상품=인원)",example:"/admin_mission_raffle 치킨=1 피자=2 커피=5"},
+                {command:"/admin_bustercall",description:"일정 시간 내 활동한 사용자들에게 USDT 분배 (상금 시간)",example:"/admin_bustercall 10 2 (총액 10 USDT, 2시간 내 활동자)"},
+                {command:"/poll",description:"투표기능(질문?, 옵션1, 옵션2)",example:"/poll 점메추? 짜장면 쌀국수"},
+                {command:"/poll_end",description:"투표종료"}
+            ]},
+            { title: "💬 답장 명령어", commands: [
+                {command:"!send",description:"답장으로 USDT 전송",example:"!send 1.5"}
+            ]}
         ];
 
-        const groupCommands = [
-            {
-                command: "/admin_mission_start",
-                description: "새로운 미션 시작 (시간(분), 상품(USDT), 문제내용)",
-                example: "/admin_mission_start 30 10 오늘 점심 메뉴는?"
-            },
-            {
-                command: "/admin_mission_end",
-                description: "현재 진행 중인 미션 종료 및 답변 목록 확인"
-            },
-            {
-                command: "/admin_mission_cancel",
-                description: "미션 강제 취소"
-            },
-            {
-                command: "/admin_dump_mission",
-                description: "미션 참여자 확인"
-            },
-            {
-                command: "/mission_exclude",
-                description: "부적절한 답변 제외",
-                example: "/mission_exclude user1 user2"
-            },
-            {
-                command: "/mission_random",
-                description: "무작위로 당첨자 선정",
-                example: "/mission_random 3"
-            },
-            {
-                command: "/mission_select",
-                description: "수동으로 당첨자 선정",
-                example: "/mission_select user1 user2 user3"
-            },
-            {
-                command: "/admin_mission_raffle",
-                description: "랜덤 추첨(래플)",
-                example: "/admin_mission_raffle 치킨=1 피자=2 커피=5"
-            },
-            {
-                command: "/admin_bustercall",
-                description: "일정 시간 내 활동한 사용자들에게 USDT 분배",
-                example: "/admin_bustercall 10 2 (총액 10 USDT, 2시간 내 활동자)"
-            }
-        ];
-
-        const chatCommands = [
-            {
-                command: "!send",
-                description: "사용자의 메시지에 답장으로 USDT 직접 전송 (관리자만 가능)",
-                example: "!send 1.5"
-            }
-        ];
-
-        function createCommandCard(command) {
+        function createCommandItem(cmd) {
             return `
-                <div class="command-card">
-                    <div class="command-header">
-                        <span class="command" onclick="copyToClipboard('${command.command}', event)">${command.command}</span>
-                        <button class="copy-button" onclick="copyToClipboard('${command.command}', event)">
-                            <span class="button-text">복사</span> 📋
-                        </button>
+                <div class="command-item" onclick="toggleDetails(this)">
+                    ${cmd.description}
+                    <div class="command-details">
+                        <span class="command-text" onclick="copyToClipboard('${cmd.command}', event)">${cmd.command}</span>
+                        ${cmd.example ? `<div class="example">예시: ${cmd.example}</div>` : ''}
                     </div>
-                    <div class="description">${command.description}</div>
-                    ${command.example ? `
-                        <div class="example" onclick="copyToClipboard('${command.example}', event)">
-                            예시: ${command.example}
-                        </div>
-                    ` : ''}
                 </div>
             `;
         }
 
-        function copyToClipboard(text, event) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            
-            textarea.select();
-            let success = false;
-            
-            try {
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(text).then(() => {
-                        success = true;
-                    });
-                } else {
-                    success = document.execCommand('copy');
-                }
-                
-                if (success) {
-                    showToast(`복사 완료: ${text}`);
-                    const element = event.currentTarget;
-                    element.classList.add('copied');
-                    setTimeout(() => {
-                        element.classList.remove('copied');
-                    }, 1000);
-                }
-            } catch (err) {
-                console.error('복사 실패:', err);
-                showToast('복사 실패: 다시 시도해주세요');
-            } finally {
-                document.body.removeChild(textarea);
-            }
+        function renderAccordion() {
+            const container = document.getElementById('accordion-container');
+            container.innerHTML = sections.map((section, idx) => `
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(${idx})">
+                        ${section.title}<span>▼</span>
+                    </div>
+                    <div class="accordion-body" id="accordion-${idx}">
+                        ${section.commands.map(createCommandItem).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function showToast(message) {
+        function toggleAccordion(idx) {
+            const body = document.getElementById(`accordion-${idx}`);
+            body.style.display = body.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleDetails(item) {
+            const details = item.querySelector('.command-details');
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function copyToClipboard(text, e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText(text).then(()=>{
+                showToast(`복사 완료: ${text}`);
+            }).catch(()=>{
+                showToast('복사 실패');
+            });
+        }
+
+        function showToast(msg) {
             const toast = document.getElementById('toast');
-            toast.textContent = message;
+            toast.textContent = msg;
             toast.style.display = 'block';
-            
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2000);
+            setTimeout(()=>{ toast.style.display = 'none'; },2000);
         }
 
-        document.getElementById('private-commands').innerHTML = 
-            privateCommands.map(createCommandCard).join('');
-        document.getElementById('group-commands').innerHTML = 
-            groupCommands.map(createCommandCard).join('');
-        document.getElementById('chat-commands').innerHTML = 
-            chatCommands.map(createCommandCard).join('');
+        renderAccordion();
     </script>
 </body>
 </html>
