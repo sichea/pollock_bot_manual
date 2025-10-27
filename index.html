@@ -69,21 +69,22 @@
                 {command:"/admin_set_distribution",description:"분배 방식 설정 (auto/manual/both/none)",example:"/admin_set_distribution auto"},
                 {command:"/admin_set_reward",description:"USDT 보상 범위 설정",example:"/admin_set_reward 0.1 1.0"},
                 {command:"/admin_set_reward_settings",description:"보상 상세 설정 (확률, 최소메시지길이, 일일최대보상, 사용자별최대보상)",example:"/admin_set_reward_settings 0.1 10 100 3"},
-                ]},
-            { title: "──────────", commands: [] },
+                {command:"/admin_set_active_hours",description:"/admin_set_active_hours <시작시> <종료시>",example:"/admin_set_active_hours 9 24"},
+                {type:"separator"},
                 {command:"/admin_add_banned_word",description:"금지 단어 추가",example:"/admin_add_banned_word 안녕 반가워 링크"},
                 {command:"/admin_remove_banned_word",description:"금지 단어 제거",example:"/admin_remove_banned_word 안녕 반가워"},
                 {command:"/admin_list_banned_words",description:"설정된 금지 단어 목록 확인"},
+                {type:"separator"},
                 {command:"/admin_ban_user",description:"특정 유저 벤 처리",example:"/admin_ban_user 123456789 사유 내용"},
                 {command:"/admin_unban_user",description:"유저 벤 해제",example:"/admin_unban_user 123456789"},
                 {command:"/admin_list_banned_users",description:"벤 유저 목록 확인"},
+                {type:"separator"},
                 {command:"/admin_stats",description:"현재 선택된 그룹의 통계 확인"},
                 {command:"/admin_activities",description:"사용자 활동 현황 확인 (정렬: chat/mission/reward)",example:"/admin_activities chat 1"},
                 {command:"/admin_balance",description:"관리자 지갑 잔액 확인"},
                 {command:"/admin_check_wallets",description:"사용자 지갑 주소 확인 (전체 목록 또는 검색)",example:"/admin_check_wallets (페이지번호)  │ /admin_check_wallets (검색어)"},
                 {command:"/admin_send",description:"수동으로 USDT 전송 (ID, 금액)",example:"/admin_send 123456789 1.5"},
                 {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
-                {command:"/admin_set_active_hours",description:"/admin_set_active_hours <시작시> <종료시>",example:"/admin_set_active_hours 9 24"}
             ]},
             { title: "👥 그룹채팅 명령어", commands: [
                 {command:"/admin_mission_start",description:"새로운 미션 시작 (시간(분), 상금, 내용)",example:"/admin_mission_start 30 10 오늘 점심 메뉴는?"},
@@ -104,6 +105,11 @@
         ];
 
         function createCommandItem(cmd) {
+
+            if (cmd.type === "separator") {
+                return `<div class="separator"></div>`;
+            }
+            
             return `
                 <div class="command-item" onclick="toggleDetails(this)">
                     ${cmd.description}
@@ -159,5 +165,6 @@
     </script>
 </body>
 </html>
+
 
 
