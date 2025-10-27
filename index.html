@@ -87,6 +87,13 @@
                 {command:"/admin_check_wallets",description:"사용자 지갑 주소 확인 (전체 목록 또는 검색)",example:"/admin_check_wallets (페이지번호)  │ /admin_check_wallets (검색어)"},
                 {command:"/admin_send",description:"수동으로 USDT 전송 (ID, 금액)",example:"/admin_send 123456789 1.5"},
                 {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
+                {type:"separator"},
+                {command:"/admin_unban_user",description:"추적 단어 등록",example:"/admin_track_word 단어"},
+                {command:"/admin_unban_user",description:"추적 중인 단어 목록 확인",example:"/admin_list_words"},
+                {command:"/admin_unban_user",description:"최근 N일간 단어 사용 랭킹 조회",example:"/admin_word_rank 단어 N"},
+                {command:"/admin_unban_user",description:"해당 단어의 사용 기록 초기화",example:"/admin_clear_word 단어"},
+                {command:"/admin_unban_user",description:"추적 중단 및 목록에서 완전 제거",example:"/admin_remove_word 단어"},
+
             ]},
             { title: "👥 그룹채팅 명령어", commands: [
                 {command:"/admin_mission_start",description:"새로운 미션 시작 (시간(분), 상금, 내용)",example:"/admin_mission_start 30 10 오늘 점심 메뉴는?"},
@@ -97,7 +104,9 @@
                 {command:"/mission_random",description:"랜덤픽",example:"/mission_random 3"},
                 {command:"/mission_select",description:"핸드픽 (유저ID)",example:"/mission_select user1 user2 user3"},
                 {command:"/admin_mission_raffle",description:"상품 래플 (상품=인원)",example:"/admin_mission_raffle 치킨=1 피자=2 커피=5"},
-                {command:"/admin_bustercall",description:"일정 시간 내 활동한 사용자들에게 USDT 분배 (상금 시간)",example:"/admin_bustercall 10 2 (총액 10 USDT, 2시간 내 활동자)"},
+                {type:"separator"},
+                {command:"/admin_bustercall",description:"[버스터콜]일정 시간 내 활동한 사용자들에게 USDT 분배 (상금 시간)",example:"/admin_bustercall 10 2 (총액 10 USDT, 2시간 내 활동자)"},
+                {type:"separator"},
                 {command:"/poll",description:"투표기능(질문?, 옵션1, 옵션2)",example:"/poll 점메추? 짜장면 쌀국수"},
                 {command:"/poll_end",description:"투표종료"}
             ]},
@@ -167,6 +176,7 @@
     </script>
 </body>
 </html>
+
 
 
 
