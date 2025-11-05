@@ -69,7 +69,7 @@
             { title: "🐟️ 명태와 갠톡 명령어", commands: [
                 {command:"/admin_select_group",description:"관리할 그룹 선택",example:"/admin_select_group -1001234567890"},
                 {command:"/admin_set_distribution",description:"분배 방식 설정 (auto/manual/both/none)",example:"/admin_set_distribution auto"},
-                {command:"/admin_set_reward",description:"USDT 보상 범위 설정",example:"/admin_set_reward 0.1 1.0"},
+                {command:"/admin_set_reward",description:"USDT 보상 범위 설정",example:"/admin_set_reward 0.1 1"},
                 {command:"/admin_set_reward_settings",description:"보상 상세 설정 (확률, 최소메시지길이, 일일최대보상, 사용자별최대보상)",example:"/admin_set_reward_settings 0.1 10 100 3"},
                 {command:"/admin_set_active_hours",description:"/admin_set_active_hours <시작시> <종료시>",example:"/admin_set_active_hours 9 24"},
                 {type:"separator"},
@@ -88,11 +88,11 @@
                 {command:"/admin_send",description:"수동으로 USDT 전송 (ID, 금액)",example:"/admin_send 123456789 1.5"},
                 {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
                 {type:"separator"},
-                {command:"/admin_unban_user",description:"추적 단어 등록",example:"/admin_track_word 단어"},
-                {command:"/admin_unban_user",description:"추적 중인 단어 목록 확인",example:"/admin_list_words"},
-                {command:"/admin_unban_user",description:"최근 N일간 단어 사용 랭킹 조회",example:"/admin_word_rank 단어 N"},
-                {command:"/admin_unban_user",description:"해당 단어의 사용 기록 초기화",example:"/admin_clear_word 단어"},
-                {command:"/admin_unban_user",description:"추적 중단 및 목록에서 완전 제거",example:"/admin_remove_word 단어"},
+                {command:"/admin_track_word",description:"추적 단어 등록",example:"/admin_track_word 단어"},
+                {command:"/admin_list_words",description:"추적 중인 단어 목록 확인",example:"/admin_list_words"},
+                {command:"/admin_word_rank",description:"최근 N일간 단어 사용 랭킹 조회",example:"/admin_word_rank 단어 N"},
+                {command:"/admin_clear_word",description:"해당 단어의 사용 기록 초기화",example:"/admin_clear_word 단어"},
+                {command:"/admin_remove_word",description:"추적 중단 및 목록에서 완전 제거",example:"/admin_remove_word 단어"},
 
             ]},
             { title: "👥 그룹채팅 명령어", commands: [
@@ -176,6 +176,7 @@
     </script>
 </body>
 </html>
+
 
 
 
