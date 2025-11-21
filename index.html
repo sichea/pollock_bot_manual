@@ -88,6 +88,9 @@
                 {command:"/admin_send",description:"수동으로 USDT 전송 (ID, 금액)",example:"/admin_send 123456789 1.5"},
                 {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
                 {type:"separator"},
+                {command:"/admin_rank_chat",description:"전체 채팅순위 확인",example:"/admin_rank_chat 2025-11-20 2025-11-21 10"},
+                {command:"/admin_rank_word",description:"키워드 채팅순위 확인",example:"/admin_rank_word 코코,coco 2025-11-20 2025-11-21 10"},
+                {type:"separator"},
                 {command:"/admin_track_word",description:"추적 단어 등록",example:"/admin_track_word 단어"},
                 {command:"/admin_list_words",description:"추적 중인 단어 목록 확인",example:"/admin_list_words"},
                 {command:"/admin_word_rank",description:"최근 N일간 단어 사용 랭킹 조회",example:"/admin_word_rank 단어 N"},
@@ -176,6 +179,7 @@
     </script>
 </body>
 </html>
+
 
 
 
