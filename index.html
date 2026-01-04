@@ -91,8 +91,8 @@
                 {command:"/admin_rank_chat",description:"전체 채팅순위 확인",example:"/admin_rank_chat 2025-11-20 2025-11-21 10"},
                 {command:"/admin_rank_word",description:"키워드 채팅순위 확인",example:"/admin_rank_word 코코,coco 2025-11-20 2025-11-21 10"},
                 {type:"separator"},
-
             ]},
+            
             { title: "👥 그룹채팅 명령어", commands: [
                 {command:"/admin_mission_start",description:"새로운 미션 시작 (시간(분), 상금, 내용)",example:"/admin_mission_start 30 10 오늘 점심 메뉴는?"},
                 {command:"/admin_mission_end",description:"미션 종료 및 답변 확인"},
@@ -108,10 +108,29 @@
                 {command:"/poll",description:"투표기능(질문?, 옵션1, 옵션2)",example:"/poll 점메추? 짜장면 쌀국수"},
                 {command:"/poll_end",description:"투표종료"}
             ]},
+            
             { title: "💬 답장 명령어", commands: [
                 {command:"!send",description:"답장으로 USDT 전송",example:"!send 1.5"}
-            ]}
-        ];
+            ]},
+            
+            { title: "화이트라벨 명령어", commands: [
+                // ✅ 장비/아바타 (화이트라벨 운영 시 자주 쓰는 파트)
+                {command:"/give",description:"(그룹) 유저에게 장비 지급 (답장 or @유저 장비ID)",example:"/give @username wood_sword  │ 또는 유저 메시지에 답장 후: /give wood_sword"},
+                {command:"/avatar",description:"(DM) 내 아바타 이미지 확인",example:"/avatar"},
+                {command:"/equip",description:"(DM) 보유 장비 장착/해제 메뉴",example:"/equip"}
+            ]},
+            
+            //{ title: "슈퍼관리자 명령어", commands: [
+            // ✅ 슈퍼관리자(그룹/공지)
+            //{command:"/admin_add_group",description:"화이트라벨 그룹 추가 (그룹ID)",example:"/admin_add_group -1001234567890"},
+            //{command:"/admin_remove_group",description:"화이트라벨 그룹 제거 (그룹ID)",example:"/admin_remove_group -1001234567890"},
+            //{command:"/admin_list_groups",description:"등록된 화이트라벨 그룹 목록 확인"},
+            //{command:"/admin_leave_group",description:"봇이 특정 그룹에서 나가기 (그룹ID)",example:"/admin_leave_group -1001234567890"},
+            //{type:"separator"},
+            //{command:"/admin_broadcast",description:"전체 화이트라벨 그룹에 공지 전송 (공지내용)",example:"/admin_broadcast 공지입니다. 오늘 9PM 이벤트 진행합니다."},
+            //{command:"/admin_broadcast_group",description:"특정 그룹에만 공지 전송 (그룹ID, 공지내용)",example:"/admin_broadcast_group -1001234567890 공지입니다. 테스트 진행합니다."}
+            //]},
+                ];
 
         function createCommandItem(cmd) {
 
@@ -174,6 +193,7 @@
     </script>
 </body>
 </html>
+
 
 
 
