@@ -91,6 +91,9 @@
                 {command:"/admin_rank_chat",description:"전체 채팅순위 확인",example:"/admin_rank_chat 2025-11-20 2025-11-21 10"},
                 {command:"/admin_rank_word",description:"키워드 채팅순위 확인",example:"/admin_rank_word 코코,coco 2025-11-20 2025-11-21 10"},
                 {type:"separator"},
+                {command:"/admin_event on <확률(0~1)> <이벤트문구>",description:"이벤트 기능 활성화 (확률 및 이벤트 문구 설정)",example:"/admin_event on 0.05 축하합니다! 커에 당첨되었습니다 🎉"},
+                {command:"/admin_event off",description:"이벤트 기능 비활성화",example:"/admin_event off,
+                {type:"separator"},
             ]},
             
             { title: "👥 그룹채팅 명령어", commands: [
@@ -113,7 +116,7 @@
                 {command:"!send",description:"답장으로 USDT 전송",example:"!send 1.5"}
             ]},
             
-            { title: "화이트라벨 명령어", commands: [
+            { title: "🏷️ 화이트라벨 명령어", commands: [
                 // ✅ 장비/아바타 (화이트라벨 운영 시 자주 쓰는 파트)
                 {command:"/give",description:"(그룹) 유저에게 장비 지급 (답장 or @유저 장비ID)",example:"/give @username wood_sword  │ 또는 유저 메시지에 답장 후: /give wood_sword"},
                 {command:"/avatar",description:"(DM) 내 아바타 이미지 확인",example:"/avatar"},
@@ -193,6 +196,7 @@
     </script>
 </body>
 </html>
+
 
 
 
