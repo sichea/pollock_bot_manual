@@ -88,11 +88,15 @@
                 {command:"/admin_send",description:"수동으로 USDT 전송 (ID, 금액)",example:"/admin_send 123456789 1.5"},
                 {command:"/admin_reset_stats",description:"통계 초기화 (all/activities/rewards/missions)",example:"/admin_reset_stats all"},
                 {type:"separator"},
-                {command:"/admin_rank_chat",description:"전체 채팅순위 확인",example:"/admin_rank_chat 2025-11-20 2025-11-21 10"},
-                {command:"/admin_rank_word",description:"키워드 채팅순위 확인",example:"/admin_rank_word 코코,coco 2025-11-20 2025-11-21 10"},
+                {command:"/admin_rank_chat",description:"전체 채팅순위 확인 <Top10>",example:"/admin_rank_chat 2025-11-20 2025-11-21 10"},
+                {command:"/admin_rank_word",description:"키워드 채팅순위 확인 <Top10>",example:"/admin_rank_word 코코,coco 2025-11-20 2025-11-21 10"},
                 {type:"separator"},
                 {command:"/admin_event on <확률(0~1)> <이벤트문구>",description:"이벤트 기능 활성화 (확률 및 이벤트 문구 설정)",example:"/admin_event on 0.05 축하합니다! 커에 당첨되었습니다 🎉"},
                 {command:"/admin_event off",description:"이벤트 기능 비활성화",example:"/admin_event off"},
+                {type:"separator"},
+                {command:"/admin_invite_rank",description:"친구초대 랭킹 확인 <Top10>",example:"/admin_invite_rank 10"},
+                {command:"/admin_invite_detail",description:"특정 유저 친구초대 상세 조회",example:"/admin_invite_detail @username 50"},
+                {command:"/admin_invite_reset",description:"선택된 그룹의 친구초대 현황 초기화",example:"/admin_invite_reset"},
                 {type:"separator"},
             ]},
             
@@ -196,6 +200,7 @@
     </script>
 </body>
 </html>
+
 
 
 
